@@ -45,5 +45,16 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+	<key>NSAppTransportSecurity</key>
+    <dict>
+      <key>NSAllowsArbitraryLoads</key>
+      <true/>
+    </dict>
+
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>App cần quyền truy cập vị trí khi đang sử dụng để gửi vị trí tài xế</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>App cần quyền truy cập vị trí để gửi định kỳ trong nền</string>
 </dict>
 </plist>
