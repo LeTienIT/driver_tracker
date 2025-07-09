@@ -13,6 +13,7 @@ class LoginViewModel extends StateNotifier<AsyncValue<bool>> {
     try {
       final (success, user) = await _repo.login(email, password); //trả về true/false
       if (success && user != null) {
+        print(user.toString());
         ref.read(currentUserProvider.notifier).state = user;
         state = AsyncData(success);
       }

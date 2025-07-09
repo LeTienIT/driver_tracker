@@ -7,20 +7,24 @@ part of 'trip_model.dart';
 // **************************************************************************
 
 _TripModel _$TripModelFromJson(Map<String, dynamic> json) => _TripModel(
-  nameKH: json['nameKH'] as String,
-  sdt: json['sdt'] as String,
-  diemDon: json['diemDon'] as String,
-  diemDen: json['diemDen'] as String,
-  moTa: json['moTa'] as String,
-  trangThai: json['trangThai'] as String,
+  name: (json['name'] as num).toInt(),
+  customTenKhach: json['customTenKhach'] as String,
+  customSdt: json['customSdt'] as String,
+  customTtk: json['customTtk'] as String?,
+  customTenDiemDon: json['customTenDiemDon'] as String,
+  customTenDiemDen: json['customTenDiemDen'] as String,
+  customMoTa: json['customMoTa'] as String,
+  customTrangThai: json['customTrangThai'] as String,
 );
 
 Map<String, dynamic> _$TripModelToJson(_TripModel instance) =>
     <String, dynamic>{
-      'nameKH': instance.nameKH,
-      'sdt': instance.sdt,
-      'diemDon': instance.diemDon,
-      'diemDen': instance.diemDen,
-      'moTa': instance.moTa,
-      'trangThai': instance.trangThai,
+      'name': instance.name,
+      'customTenKhach': instance.customTenKhach,
+      'customSdt': instance.customSdt,
+      'customTtk': instance.customTtk,
+      'customTenDiemDon': instance.customTenDiemDon,
+      'customTenDiemDen': instance.customTenDiemDen,
+      'customMoTa': instance.customMoTa,
+      'customTrangThai': instance.customTrangThai,
     };

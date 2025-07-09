@@ -7,9 +7,10 @@ part 'driver_user.g.dart';
 abstract class DriverUser with _$DriverUser {
   const factory DriverUser({
     required String email,
+    required int id,
     required String name,
     required String sdt,
-    required String thongTinKhac,
+    String? thongTinKhac,
   }) = _DriverUser;
 
   factory DriverUser.fromJson(Map<String, Object?> json) => _$DriverUserFromJson(json);

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TripModel {
 
- String get nameKH; String get sdt; String get diemDon; String get diemDen; String get moTa; String get trangThai;
+ int get name; String get customTenKhach; String get customSdt; String? get customTtk; String get customTenDiemDon; String get customTenDiemDen; String get customMoTa; String get customTrangThai;
 /// Create a copy of TripModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $TripModelCopyWith<TripModel> get copyWith => _$TripModelCopyWithImpl<TripModel>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TripModel&&(identical(other.nameKH, nameKH) || other.nameKH == nameKH)&&(identical(other.sdt, sdt) || other.sdt == sdt)&&(identical(other.diemDon, diemDon) || other.diemDon == diemDon)&&(identical(other.diemDen, diemDen) || other.diemDen == diemDen)&&(identical(other.moTa, moTa) || other.moTa == moTa)&&(identical(other.trangThai, trangThai) || other.trangThai == trangThai));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TripModel&&(identical(other.name, name) || other.name == name)&&(identical(other.customTenKhach, customTenKhach) || other.customTenKhach == customTenKhach)&&(identical(other.customSdt, customSdt) || other.customSdt == customSdt)&&(identical(other.customTtk, customTtk) || other.customTtk == customTtk)&&(identical(other.customTenDiemDon, customTenDiemDon) || other.customTenDiemDon == customTenDiemDon)&&(identical(other.customTenDiemDen, customTenDiemDen) || other.customTenDiemDen == customTenDiemDen)&&(identical(other.customMoTa, customMoTa) || other.customMoTa == customMoTa)&&(identical(other.customTrangThai, customTrangThai) || other.customTrangThai == customTrangThai));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,nameKH,sdt,diemDon,diemDen,moTa,trangThai);
+int get hashCode => Object.hash(runtimeType,name,customTenKhach,customSdt,customTtk,customTenDiemDon,customTenDiemDen,customMoTa,customTrangThai);
 
 @override
 String toString() {
-  return 'TripModel(nameKH: $nameKH, sdt: $sdt, diemDon: $diemDon, diemDen: $diemDen, moTa: $moTa, trangThai: $trangThai)';
+  return 'TripModel(name: $name, customTenKhach: $customTenKhach, customSdt: $customSdt, customTtk: $customTtk, customTenDiemDon: $customTenDiemDon, customTenDiemDen: $customTenDiemDen, customMoTa: $customMoTa, customTrangThai: $customTrangThai)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $TripModelCopyWith<$Res>  {
   factory $TripModelCopyWith(TripModel value, $Res Function(TripModel) _then) = _$TripModelCopyWithImpl;
 @useResult
 $Res call({
- String nameKH, String sdt, String diemDon, String diemDen, String moTa, String trangThai
+ int name, String customTenKhach, String customSdt, String? customTtk, String customTenDiemDon, String customTenDiemDen, String customMoTa, String customTrangThai
 });
 
 
@@ -65,14 +65,16 @@ class _$TripModelCopyWithImpl<$Res>
 
 /// Create a copy of TripModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? nameKH = null,Object? sdt = null,Object? diemDon = null,Object? diemDen = null,Object? moTa = null,Object? trangThai = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? customTenKhach = null,Object? customSdt = null,Object? customTtk = freezed,Object? customTenDiemDon = null,Object? customTenDiemDen = null,Object? customMoTa = null,Object? customTrangThai = null,}) {
   return _then(_self.copyWith(
-nameKH: null == nameKH ? _self.nameKH : nameKH // ignore: cast_nullable_to_non_nullable
-as String,sdt: null == sdt ? _self.sdt : sdt // ignore: cast_nullable_to_non_nullable
-as String,diemDon: null == diemDon ? _self.diemDon : diemDon // ignore: cast_nullable_to_non_nullable
-as String,diemDen: null == diemDen ? _self.diemDen : diemDen // ignore: cast_nullable_to_non_nullable
-as String,moTa: null == moTa ? _self.moTa : moTa // ignore: cast_nullable_to_non_nullable
-as String,trangThai: null == trangThai ? _self.trangThai : trangThai // ignore: cast_nullable_to_non_nullable
+name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as int,customTenKhach: null == customTenKhach ? _self.customTenKhach : customTenKhach // ignore: cast_nullable_to_non_nullable
+as String,customSdt: null == customSdt ? _self.customSdt : customSdt // ignore: cast_nullable_to_non_nullable
+as String,customTtk: freezed == customTtk ? _self.customTtk : customTtk // ignore: cast_nullable_to_non_nullable
+as String?,customTenDiemDon: null == customTenDiemDon ? _self.customTenDiemDon : customTenDiemDon // ignore: cast_nullable_to_non_nullable
+as String,customTenDiemDen: null == customTenDiemDen ? _self.customTenDiemDen : customTenDiemDen // ignore: cast_nullable_to_non_nullable
+as String,customMoTa: null == customMoTa ? _self.customMoTa : customMoTa // ignore: cast_nullable_to_non_nullable
+as String,customTrangThai: null == customTrangThai ? _self.customTrangThai : customTrangThai // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
@@ -158,10 +160,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String nameKH,  String sdt,  String diemDon,  String diemDen,  String moTa,  String trangThai)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int name,  String customTenKhach,  String customSdt,  String? customTtk,  String customTenDiemDon,  String customTenDiemDen,  String customMoTa,  String customTrangThai)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TripModel() when $default != null:
-return $default(_that.nameKH,_that.sdt,_that.diemDon,_that.diemDen,_that.moTa,_that.trangThai);case _:
+return $default(_that.name,_that.customTenKhach,_that.customSdt,_that.customTtk,_that.customTenDiemDon,_that.customTenDiemDen,_that.customMoTa,_that.customTrangThai);case _:
   return orElse();
 
 }
@@ -179,10 +181,10 @@ return $default(_that.nameKH,_that.sdt,_that.diemDon,_that.diemDen,_that.moTa,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String nameKH,  String sdt,  String diemDon,  String diemDen,  String moTa,  String trangThai)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int name,  String customTenKhach,  String customSdt,  String? customTtk,  String customTenDiemDon,  String customTenDiemDen,  String customMoTa,  String customTrangThai)  $default,) {final _that = this;
 switch (_that) {
 case _TripModel():
-return $default(_that.nameKH,_that.sdt,_that.diemDon,_that.diemDen,_that.moTa,_that.trangThai);case _:
+return $default(_that.name,_that.customTenKhach,_that.customSdt,_that.customTtk,_that.customTenDiemDon,_that.customTenDiemDen,_that.customMoTa,_that.customTrangThai);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -199,10 +201,10 @@ return $default(_that.nameKH,_that.sdt,_that.diemDon,_that.diemDen,_that.moTa,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String nameKH,  String sdt,  String diemDon,  String diemDen,  String moTa,  String trangThai)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int name,  String customTenKhach,  String customSdt,  String? customTtk,  String customTenDiemDon,  String customTenDiemDen,  String customMoTa,  String customTrangThai)?  $default,) {final _that = this;
 switch (_that) {
 case _TripModel() when $default != null:
-return $default(_that.nameKH,_that.sdt,_that.diemDon,_that.diemDen,_that.moTa,_that.trangThai);case _:
+return $default(_that.name,_that.customTenKhach,_that.customSdt,_that.customTtk,_that.customTenDiemDon,_that.customTenDiemDen,_that.customMoTa,_that.customTrangThai);case _:
   return null;
 
 }
@@ -214,15 +216,17 @@ return $default(_that.nameKH,_that.sdt,_that.diemDon,_that.diemDen,_that.moTa,_t
 @JsonSerializable()
 
 class _TripModel implements TripModel {
-  const _TripModel({required this.nameKH, required this.sdt, required this.diemDon, required this.diemDen, required this.moTa, required this.trangThai});
+  const _TripModel({required this.name, required this.customTenKhach, required this.customSdt, this.customTtk, required this.customTenDiemDon, required this.customTenDiemDen, required this.customMoTa, required this.customTrangThai});
   factory _TripModel.fromJson(Map<String, dynamic> json) => _$TripModelFromJson(json);
 
-@override final  String nameKH;
-@override final  String sdt;
-@override final  String diemDon;
-@override final  String diemDen;
-@override final  String moTa;
-@override final  String trangThai;
+@override final  int name;
+@override final  String customTenKhach;
+@override final  String customSdt;
+@override final  String? customTtk;
+@override final  String customTenDiemDon;
+@override final  String customTenDiemDen;
+@override final  String customMoTa;
+@override final  String customTrangThai;
 
 /// Create a copy of TripModel
 /// with the given fields replaced by the non-null parameter values.
@@ -237,16 +241,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TripModel&&(identical(other.nameKH, nameKH) || other.nameKH == nameKH)&&(identical(other.sdt, sdt) || other.sdt == sdt)&&(identical(other.diemDon, diemDon) || other.diemDon == diemDon)&&(identical(other.diemDen, diemDen) || other.diemDen == diemDen)&&(identical(other.moTa, moTa) || other.moTa == moTa)&&(identical(other.trangThai, trangThai) || other.trangThai == trangThai));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TripModel&&(identical(other.name, name) || other.name == name)&&(identical(other.customTenKhach, customTenKhach) || other.customTenKhach == customTenKhach)&&(identical(other.customSdt, customSdt) || other.customSdt == customSdt)&&(identical(other.customTtk, customTtk) || other.customTtk == customTtk)&&(identical(other.customTenDiemDon, customTenDiemDon) || other.customTenDiemDon == customTenDiemDon)&&(identical(other.customTenDiemDen, customTenDiemDen) || other.customTenDiemDen == customTenDiemDen)&&(identical(other.customMoTa, customMoTa) || other.customMoTa == customMoTa)&&(identical(other.customTrangThai, customTrangThai) || other.customTrangThai == customTrangThai));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,nameKH,sdt,diemDon,diemDen,moTa,trangThai);
+int get hashCode => Object.hash(runtimeType,name,customTenKhach,customSdt,customTtk,customTenDiemDon,customTenDiemDen,customMoTa,customTrangThai);
 
 @override
 String toString() {
-  return 'TripModel(nameKH: $nameKH, sdt: $sdt, diemDon: $diemDon, diemDen: $diemDen, moTa: $moTa, trangThai: $trangThai)';
+  return 'TripModel(name: $name, customTenKhach: $customTenKhach, customSdt: $customSdt, customTtk: $customTtk, customTenDiemDon: $customTenDiemDon, customTenDiemDen: $customTenDiemDen, customMoTa: $customMoTa, customTrangThai: $customTrangThai)';
 }
 
 
@@ -257,7 +261,7 @@ abstract mixin class _$TripModelCopyWith<$Res> implements $TripModelCopyWith<$Re
   factory _$TripModelCopyWith(_TripModel value, $Res Function(_TripModel) _then) = __$TripModelCopyWithImpl;
 @override @useResult
 $Res call({
- String nameKH, String sdt, String diemDon, String diemDen, String moTa, String trangThai
+ int name, String customTenKhach, String customSdt, String? customTtk, String customTenDiemDon, String customTenDiemDen, String customMoTa, String customTrangThai
 });
 
 
@@ -274,14 +278,16 @@ class __$TripModelCopyWithImpl<$Res>
 
 /// Create a copy of TripModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? nameKH = null,Object? sdt = null,Object? diemDon = null,Object? diemDen = null,Object? moTa = null,Object? trangThai = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? customTenKhach = null,Object? customSdt = null,Object? customTtk = freezed,Object? customTenDiemDon = null,Object? customTenDiemDen = null,Object? customMoTa = null,Object? customTrangThai = null,}) {
   return _then(_TripModel(
-nameKH: null == nameKH ? _self.nameKH : nameKH // ignore: cast_nullable_to_non_nullable
-as String,sdt: null == sdt ? _self.sdt : sdt // ignore: cast_nullable_to_non_nullable
-as String,diemDon: null == diemDon ? _self.diemDon : diemDon // ignore: cast_nullable_to_non_nullable
-as String,diemDen: null == diemDen ? _self.diemDen : diemDen // ignore: cast_nullable_to_non_nullable
-as String,moTa: null == moTa ? _self.moTa : moTa // ignore: cast_nullable_to_non_nullable
-as String,trangThai: null == trangThai ? _self.trangThai : trangThai // ignore: cast_nullable_to_non_nullable
+name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as int,customTenKhach: null == customTenKhach ? _self.customTenKhach : customTenKhach // ignore: cast_nullable_to_non_nullable
+as String,customSdt: null == customSdt ? _self.customSdt : customSdt // ignore: cast_nullable_to_non_nullable
+as String,customTtk: freezed == customTtk ? _self.customTtk : customTtk // ignore: cast_nullable_to_non_nullable
+as String?,customTenDiemDon: null == customTenDiemDon ? _self.customTenDiemDon : customTenDiemDon // ignore: cast_nullable_to_non_nullable
+as String,customTenDiemDen: null == customTenDiemDen ? _self.customTenDiemDen : customTenDiemDen // ignore: cast_nullable_to_non_nullable
+as String,customMoTa: null == customMoTa ? _self.customMoTa : customMoTa // ignore: cast_nullable_to_non_nullable
+as String,customTrangThai: null == customTrangThai ? _self.customTrangThai : customTrangThai // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

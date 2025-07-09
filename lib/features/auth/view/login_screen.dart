@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:driver_tracker/core/widgets/show_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../provider/login_provider.dart';
@@ -15,7 +16,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  void _handleLogin() async {
+  void _handleLogin(BuildContext context) async {
     final vm = ref.read(loginProvider.notifier);
     await vm.login(
       emailController.text.trim(),
@@ -29,10 +30,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Đăng nhập thành công')),
           );
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Email hoặc mật khẩu không đúng')),
-          );
+          Navigator.pushNamedAndRemoveUntil(context, '/trip-list', (router)=>false);
+        }
+        else {
+          CustomDialog.showMessageDialog(context: context, title: 'Thông báo', message: 'Tài khoản hoặc mật khẩu không đúng');
         }
       },
       error: (e, _) {
@@ -136,7 +137,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 child: ElevatedButton(
                                   onPressed: (){
                                     if(_formKey.currentState!.validate()){
-                                      _handleLogin();
+                                      _handleLogin(context);
                                     }
                                   },
                                   style: ElevatedButton.styleFrom(

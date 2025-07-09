@@ -10,7 +10,7 @@ class DioClient{
       onRequest: (option, handler) async {
         final token =  await AuthService.instance.getToken();
         if(token != null){
-          option.headers['Authorization'] = 'Bearer $token';
+          // option.headers['Authorization'] = 'Bearer $token';
         }
         return handler.next(option);
       },

@@ -17,7 +17,9 @@ class AuthRepository {
 
       final data = res.data['message'];
       if (data['success'] == true) {
-        await AuthService.instance.saveToken(data['token']);
+        if(data['token']!=null) {
+          await AuthService.instance.saveToken(data['token']);
+        }
         final userJson = data['user'];
         final user = DriverUser.fromJson(userJson);
 
@@ -26,7 +28,7 @@ class AuthRepository {
         return (false, null);
       }
     } catch (e) {
-      print(e);
+      print('Lỗi repository login: $e');
       throw Exception("Lỗi kết nối hoặc server: $e");
     }
   }

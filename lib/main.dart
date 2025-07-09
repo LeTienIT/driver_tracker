@@ -1,6 +1,12 @@
 import 'package:driver_tracker/features/auth/view/login_screen.dart';
+import 'package:driver_tracker/features/trip_list/view/trip_detail_screen.dart';
+import 'package:driver_tracker/features/trip_list/view/trip_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:latlong2/latlong.dart';
+
+import 'core/dark_theme.dart';
+import 'core/light_theme.dart';
 
 void main() {
   runApp(
@@ -16,10 +22,40 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Driver Tracker',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
+      title: 'Driver Tracker',
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: ThemeMode.light,
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case '/trip-list':
+            return MaterialPageRoute(builder: (_) => const TripScreen());
+
+          case '/trip-detail':
+            final args = settings.arguments as Map<String, dynamic>?;
+            if (args == null || args['pickup'] == null || args['dropoff'] == null) {
+              // Xử lý khi thiếu arguments
+              return MaterialPageRoute(
+                builder: (_) => const Scaffold(
+                  body: Center(child: Text('Thiếu thông tin vị trí')),
+                ),
+              );
+            }
+            return MaterialPageRoute(
+              builder: (_) => TripMapScreen(
+                pickup: args['pickup'] as LatLng,
+                dropoff: args['dropoff'] as LatLng,
+              ),
+            );
+
+          default:
+            return MaterialPageRoute(
+                builder: (_) => const Scaffold(
+                  body: Center(child: Text('Không tìm thấy trang')),
+                )
+            );
+        }
+      },
       home: const LoginScreen(),
     );
   }

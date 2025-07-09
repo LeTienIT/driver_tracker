@@ -9,6 +9,6 @@ final tripProvider = StateNotifierProvider<TripVM, TripState>(
       if (user == null) {
         throw Exception('Chưa đăng nhập');
       }
-      return TripVM(ref, user!.email)..getTrips();
+      return TripVM(ref, user!.id)..getTrips()..updateLocationLogin();
     }
 );

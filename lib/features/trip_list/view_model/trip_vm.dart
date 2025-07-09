@@ -2,22 +2,67 @@ import 'package:driver_tracker/features/trip_list/model/trip_model.dart';
 import 'package:driver_tracker/features/trip_list/model/trip_state.dart';
 import 'package:driver_tracker/features/trip_list/repository/trip_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:latlong2/latlong.dart';
 
 class TripVM extends StateNotifier<TripState>{
   TripVM(this.ref,this.email) : super(TripState.initial());
 
   final Ref ref;
-  final String email;
+  final int email;
   final _repo = TripRepository();
 
   Future<void> getTrips() async{
     state = state.copyWith(isLoading: true);
     try{
       final rs = await _repo.getAllData(email);
+      // print("getdata ${rs.length}");
       state = state.copyWith(isLoading: false, trips: rs);
     }catch(e){
       state = state.copyWith(isLoading: false,error: e.toString());
     }
   }
 
+  Future<void> updateLocationLogin() async {
+    state = state.copyWith(isLoading: true);
+    try{
+      final pos = await getCurrentPosition();
+      await _repo.updateLocation(email,pos.longitude, pos.latitude);
+      state = state.copyWith(isLoading: false);
+    }catch(e){
+      state = state.copyWith(isLoading: false,error: e.toString());
+    }
+  }
+
+  Future<Position> getCurrentPosition() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      throw Exception("GPS chưa bật");
+    }
+
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        throw Exception("Không được cấp quyền vị trí");
+      }
+    }
+
+    return await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+    );
+  }
+
+  Future<(LatLng?, LatLng?)> getTripDetail(int id) async{
+    state = state.copyWith(isLoading: true);
+    try{
+      final res = await _repo.getTripDetail(id);
+      // print("res get detail: $res");
+      state = state.copyWith(isLoading: false);
+      return res;
+    }catch(e){
+      state = state.copyWith(isLoading: false,error: e.toString());
+      return (null, null);
+    }
+  }
 }
