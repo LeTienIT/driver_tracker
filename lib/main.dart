@@ -43,8 +43,11 @@ class MyApp extends StatelessWidget {
             }
             return MaterialPageRoute(
               builder: (_) => TripMapScreen(
+                tripId: args['tripId'] as int,
+                trangThai: args['trangThai'] as String,
                 pickup: args['pickup'] as LatLng,
                 dropoff: args['dropoff'] as LatLng,
+                checkDaDon: args['checkDaDon'] as bool,
               ),
             );
 

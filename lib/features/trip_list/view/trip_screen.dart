@@ -17,9 +17,18 @@ class _TripScreenState extends ConsumerState<TripScreen> {
   final permission = PermissionCustom();
 
   @override
+  void dispose(){
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
     _handlePermission();
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      final vm = ref.read(tripProvider.notifier);
+      vm.updateStatusDriver('Đăng nhập: ${DateTime.now()}');
+    });
   }
 
   Future<void> _handlePermission() async {
@@ -27,7 +36,6 @@ class _TripScreenState extends ConsumerState<TripScreen> {
     final gpsEnabled = await permission.isGpsEnabled();
 
     if (!granted || !gpsEnabled) {
-      // ignore: use_build_context_synchronously
       showDialog(
         context: context,
         builder: (_) => AlertDialog(
@@ -57,10 +65,13 @@ class _TripScreenState extends ConsumerState<TripScreen> {
       body: ListView.builder(
         itemCount: state.trips.length,
         itemBuilder: (_, idx) {
-          final item = state.trips[idx];
+          var item = state.trips[idx];
           return TripItemWidget(
             trip: item,
             function: () async {
+              if(item.customTrangThai == 'Khởi tạo'){
+                item = item.copyWith(customTrangThai: 'Đang đi đón khách');
+              }
               final (pickupPoint, dropoffPoint) = await vm.getTripDetail(item.name);
               // if (!context.mounted) return;
 
@@ -80,13 +91,21 @@ class _TripScreenState extends ConsumerState<TripScreen> {
                 );
                 return;
               }
+              bool checkDaDon = true;
+              if(item.customTrangThai == 'Đang đi đón khách'){
+                checkDaDon = false;
+              }
 
-              Navigator.pushNamed(
+              Navigator.pushNamedAndRemoveUntil(
                 context,
                 '/trip-detail',
+                (router)=>false,
                 arguments: {
+                  'tripId': item.name,
+                  'trangThai': item.customTrangThai,
                   'pickup': pickupPoint,
                   'dropoff': dropoffPoint,
+                  'checkDaDon': checkDaDon
                 },
               );
             },

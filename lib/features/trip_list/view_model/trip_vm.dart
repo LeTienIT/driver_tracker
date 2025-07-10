@@ -23,14 +23,19 @@ class TripVM extends StateNotifier<TripState>{
     }
   }
 
-  Future<void> updateLocationLogin() async {
-    state = state.copyWith(isLoading: true);
-    try{
-      final pos = await getCurrentPosition();
-      await _repo.updateLocation(email,pos.longitude, pos.latitude);
-      state = state.copyWith(isLoading: false);
-    }catch(e){
-      state = state.copyWith(isLoading: false,error: e.toString());
+  Future<void> updateLocationLogin({bool loading = true}) async {
+    final pos = await getCurrentPosition();
+    if(loading) {
+      state = state.copyWith(isLoading: true);
+      try{
+        await _repo.updateLocation(email, pos.latitude, pos.longitude);
+        state = state.copyWith(isLoading: false);
+      }catch(e){
+        state = state.copyWith(isLoading: false,error: e.toString());
+      }
+    }
+    else{
+      await _repo.updateLocation(email, pos.latitude, pos.longitude);
     }
   }
 
@@ -51,6 +56,33 @@ class TripVM extends StateNotifier<TripState>{
     return await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high,
     );
+  }
+
+  Future<void> updateStatusTrip(int id, String s)async {
+    state = state.copyWith(isLoading: true);
+    try{
+      await _repo.updateStateTrip(id, s);
+      final updatedTrips = state.trips.map((trip) {
+        if (trip.name == id) {
+          return trip.copyWith(customTrangThai: s);
+        }
+        return trip;
+      }).toList();
+
+      state = state.copyWith(isLoading: false, trips: updatedTrips);
+    }catch(e){
+      state = state.copyWith(isLoading: false,error: e.toString());
+    }
+  }
+
+  Future<void> updateStatusDriver(String s)async {
+    state = state.copyWith(isLoading: true);
+    try{
+      await _repo.updateStateDrive(email, s);
+      state = state.copyWith(isLoading: false);
+    }catch(e){
+      state = state.copyWith(isLoading: false,error: e.toString());
+    }
   }
 
   Future<(LatLng?, LatLng?)> getTripDetail(int id) async{

@@ -3,7 +3,6 @@ import 'package:driver_tracker/features/trip_list/model/trip_model.dart';
 import 'package:driver_tracker/features/trip_list/provider/trip_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:latlong2/latlong.dart';
 
 class TripItemWidget extends ConsumerWidget{
   TripModel trip;
@@ -38,20 +37,21 @@ class TripItemWidget extends ConsumerWidget{
               ],
             ),
             const Divider(height: 16),
-            Center(
-              child: ElevatedButton(
-                  onPressed: () async {
-                    final rs = await CustomDialog.showConfirmDialog(
-                        context: context,
-                        title: 'Thông báo',
-                        message: 'Xác nhận bắt đầu hành trình \n Trong quá trình không thể thay đổi'
-                    );
-                    if(rs){
-                      await function();
-                    }
-                  },
-                  child: Text('Hành trình')),
-            )
+            if(trip.customTrangThai.trim() != 'Hoàn thành hành trình')
+              Center(
+                child: ElevatedButton(
+                    onPressed: () async {
+                      final rs = await CustomDialog.showConfirmDialog(
+                          context: context,
+                          title: 'Thông báo',
+                          message: 'Xác nhận bắt đầu hành trình \n Trong quá trình không thể thay đổi'
+                      );
+                      if(rs){
+                        await function();
+                      }
+                    },
+                    child: Text('Hành trình')),
+              )
           ],
         ),
       ),

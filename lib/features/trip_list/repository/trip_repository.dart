@@ -56,6 +56,36 @@ class TripRepository{
     }
   }
 
+  Future<void> updateStateDrive(int id, String s) async {
+    try{
+      final res = await _client.dio.post(
+          'api_lt.driver_tracker.post.driver_tracker.update_driver_state',
+          data: {
+            "name": id,
+            "state": s,
+          }
+      );
+      print('update state driver ${res.data}');
+    }catch(e){
+      print('Lỗi trip repository -> update driver state: $e');
+    }
+  }
+
+  Future<void> updateStateTrip(int id, String s) async {
+    try{
+      final res = await _client.dio.post(
+          'api_lt.driver_tracker.post.driver_tracker.update_trip_state',
+          data: {
+            "name": id,
+            "state": s,
+          }
+      );
+      print('update state trips ${res.data}');
+    }catch(e){
+      print('Lỗi trip repository -> update trip state: $e');
+    }
+  }
+
   Future<(LatLng?, LatLng?)> getTripDetail(int id) async {
     try {
       final res = await _client.dio.post(
