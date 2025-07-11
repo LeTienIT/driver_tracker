@@ -50,7 +50,7 @@ class TripRepository{
             "lat": lat
           }
       );
-      print('updateLocation ${res.data}');
+      // print('updateLocation ${res.data}');
     }catch(e){
       print('Lỗi trip repository -> updateLocation: $e');
     }
@@ -65,7 +65,7 @@ class TripRepository{
             "state": s,
           }
       );
-      print('update state driver ${res.data}');
+      // print('update state driver ${res.data}');
     }catch(e){
       print('Lỗi trip repository -> update driver state: $e');
     }
@@ -80,7 +80,7 @@ class TripRepository{
             "state": s,
           }
       );
-      print('update state trips ${res.data}');
+      // print('update state trips ${res.data}');
     }catch(e){
       print('Lỗi trip repository -> update trip state: $e');
     }

@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:driver_tracker/core/widgets/show_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../provider/login_provider.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
@@ -15,6 +16,57 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  bool _isAutoLoginAttempted = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkAutoLogin();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+  Future<void> _checkAutoLogin() async {
+    try {
+      final preferences = await SharedPreferences.getInstance();
+      final loginAuto = preferences.getBool('loginAuto') ?? false;
+
+      if (!loginAuto || !mounted) return;
+
+      final user = preferences.getString('user') ?? '';
+      final pass = preferences.getString('pass') ?? '';
+
+      if (user.trim().isEmpty || pass.trim().isEmpty) return;
+
+      emailController.text = user;
+      passwordController.text = pass;
+
+      if (!mounted) return;
+
+      setState(() => _isAutoLoginAttempted = true);
+
+      final vm = ref.read(loginProvider.notifier);
+      await vm.login(user, pass);
+      final result = ref.read(loginProvider);
+      result.whenOrNull(
+        data: (success) {
+          if (success == true) {
+            Navigator.pushNamedAndRemoveUntil(context, '/trip-list', (router)=>false);
+          }
+        },
+        error: (e, _) {
+          print("Lỗi auto login: $e");
+        },
+      );
+
+    } catch (e) {
+      if (!mounted) return;
+    }
+  }
 
   void _handleLogin(BuildContext context) async {
     final vm = ref.read(loginProvider.notifier);
@@ -48,7 +100,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Widget build(BuildContext context) {
     final state = ref.watch(loginProvider);
     final size = MediaQuery.of(context).size;
-
+    if (_isAutoLoginAttempted) {
+      return const Center(child: CircularProgressIndicator());
+    }
     return Scaffold(
       body: Stack(
         children: [
@@ -65,8 +119,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
             child: Container(
-              color: Colors.black.withValues(alpha: 0.3),
-            ),
+                         ),
           ),
           // Form login
           Center(
@@ -90,11 +143,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Text(
+                        Text(
                           'Đăng nhập',
                           style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 23,
+                            fontWeight: FontWeight.bold
                           ),
                         ),
                         const SizedBox(height: 20),
@@ -146,12 +200,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                       borderRadius: BorderRadius.circular(12),
                                     ),
                                   ),
-                                  child: const Text(
+                                  child: Text(
                                     "Đăng nhập",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.white,
-                                    ),
+                                    style: Theme.of(context).textTheme.bodyMedium,
                                   ),
                           ),
                         ),

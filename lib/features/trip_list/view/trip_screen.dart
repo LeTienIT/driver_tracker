@@ -1,3 +1,4 @@
+import 'package:driver_tracker/core/widgets/menu.dart';
 import 'package:driver_tracker/features/trip_list/provider/trip_provider.dart';
 import 'package:driver_tracker/features/trip_list/view/trip_item.dart';
 import 'package:flutter/material.dart';
@@ -57,11 +58,15 @@ class _TripScreenState extends ConsumerState<TripScreen> {
     final vm = ref.read(tripProvider.notifier);
     final state = ref.watch(tripProvider);
 
+    if (state == null) {
+      return Center(child: Text("Bạn chưa đăng nhập"));
+    }
     if (state.isLoading) return const Center(child: CircularProgressIndicator());
     if (state.error != null) return Center(child: Text("Lỗi: ${state.error}"));
 
     return Scaffold(
       appBar: AppBar(title: const Text('Danh sách khách hàng')),
+      drawer: Drawer(child: Menu(),),
       body: ListView.builder(
         itemCount: state.trips.length,
         itemBuilder: (_, idx) {

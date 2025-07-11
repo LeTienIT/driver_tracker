@@ -2,15 +2,16 @@
 
 Ứng dụng quản lý ví trị tài xế đưa đón khách hàng
 
-## Getting Started
+- Ứng dụng call api đến server
+- Server trả ra danh sách các khách hàng - Mỗi khách hàng là 1 chuyến đi
+  - Bản DEMO NÊN chỉ có 1 khách / 1 chuyến 
+  - BÀI TOÁN GIẢI QUYẾT 1-1
+- Khi tài ấn bắt đầu 1 hành trính -> api server để lấy điểm đón và đến [GEOLOCATOR]
+- Trong suốt quá trình sẽ hiển thị map, tuyến đường đi OSRM + flutter_map
+- CỨ 100S sẽ gửi vị trí của tài xế về server 1 lần
+- Sau khi đón được khách, tài xế ấn xác nhận để chuyển qua tuyến đường tiếp theo (điểm đến)
+  - API thay đổi trạng thái hành trình trong csdl
+- Khi hoàn thành -> ấn xác nhận để kết thúc -> QUAY VỀ GIAO DIỆN DANH SÁCH
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# BẢN DEMO - không có ứng dụng thực tế - không triển khai dạng sản phẩm vì OSRM free
+# GIẢI QUYẾT BÀI TOÁN ĐƯA ĐÓN 1-1 

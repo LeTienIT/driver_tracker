@@ -1,4 +1,5 @@
 import 'package:driver_tracker/features/auth/view/login_screen.dart';
+import 'package:driver_tracker/features/settings/view/setting_screen.dart';
 import 'package:driver_tracker/features/trip_list/view/trip_detail_screen.dart';
 import 'package:driver_tracker/features/trip_list/view/trip_screen.dart';
 import 'package:flutter/material.dart';
@@ -7,30 +8,38 @@ import 'package:latlong2/latlong.dart';
 
 import 'core/dark_theme.dart';
 import 'core/light_theme.dart';
+import 'core/services/share_pre.dart';
+import 'features/settings/provider/theme_provider.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SharedPreference.instance.init();
   runApp(
     ProviderScope(
       child: MyApp(),
   ),);
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = ref.watch(themeProvider);
     return MaterialApp(
       title: 'Driver Tracker',
       theme: lightTheme,
       darkTheme: darkTheme,
-      themeMode: ThemeMode.light,
+      themeMode: theme.isDark ? ThemeMode.dark : ThemeMode.light,
       onGenerateRoute: (settings) {
         switch (settings.name) {
+          case '/login':
+            return MaterialPageRoute(builder: (_) => const LoginScreen());
+          case '/setting':
+            return MaterialPageRoute(builder: (_) => SettingScreen());
           case '/trip-list':
             return MaterialPageRoute(builder: (_) => const TripScreen());
-
           case '/trip-detail':
             final args = settings.arguments as Map<String, dynamic>?;
             if (args == null || args['pickup'] == null || args['dropoff'] == null) {

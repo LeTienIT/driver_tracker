@@ -3,7 +3,7 @@ import 'package:driver_tracker/features/trip_list/model/trip_state.dart';
 import 'package:driver_tracker/features/trip_list/view_model/trip_vm.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final tripProvider = StateNotifierProvider<TripVM, TripState>(
+final tripProvider = StateNotifierProvider.autoDispose<TripVM, TripState>(
     (ref){
       final user = ref.watch(currentUserProvider);
       if (user == null) {
